@@ -11,7 +11,7 @@ class Calculator(Command):
         )
 
     @staticmethod
-    async def execute(self, ctx, a: int, b: int):
+    async def execute(ctx, a: int, b: int):
         result = a + b
         if result == 67:
             result = "6🤷🏻‍♀️7"
@@ -20,7 +20,7 @@ class Calculator(Command):
         await ctx.send(result)
 
     @staticmethod
-    async def handle_error(self, ctx, error):
+    async def handle_error(ctx, error):
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send("❌ Please provide two numbers! Example: `!calculator 30 37`")
         elif isinstance(error, commands.BadArgument):

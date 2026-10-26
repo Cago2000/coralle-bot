@@ -10,7 +10,7 @@ class Message(Command):
         )
 
     @staticmethod
-    async def execute(self, ctx, *, content: str):
+    async def execute(ctx, *, content: str):
         await ctx.send(content)
 
     def get_handler(self):
