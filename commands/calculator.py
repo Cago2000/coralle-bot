@@ -1,5 +1,5 @@
 from discord.ext import commands
-from command import Command
+from commands.base.command import Command
 
 
 class Calculator(Command):

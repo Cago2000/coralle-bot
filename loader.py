@@ -3,8 +3,8 @@ import inspect
 from pathlib import Path
 from dotenv import load_dotenv
 import constants
-from command import Command
-from event import Event
+from commands.base.command import Command
+from events.base.event import Event
 
 base_dir = constants.base_dir
 

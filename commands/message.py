@@ -1,4 +1,4 @@
-from command import Command
+from commands.base.command import Command
 
 
 class Message(Command):

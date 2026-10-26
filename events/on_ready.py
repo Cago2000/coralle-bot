@@ -1,4 +1,4 @@
-from event import Event
+from events.base.event import Event
 
 
 class OnReady(Event):
