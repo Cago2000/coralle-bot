@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Optional
+from typing import Optional, Callable
 
 
 @dataclass
@@ -10,9 +10,8 @@ class Command:
     enabled: bool = True
     cooldown: Optional[float] = None
 
-    def execute(self, *args, **kwargs):
-        """Execute the command."""
-        raise NotImplementedError
+    def get_handler(self) -> Callable:
+        raise NotImplementedError(f"{self.__class__.__name__} must implement get_handler()")
 
     def enable(self) -> None:
         self.enabled = True

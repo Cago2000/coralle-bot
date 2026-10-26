@@ -1,29 +1,17 @@
 import os
-import importlib
-from pathlib import Path
-from dotenv import load_dotenv
 from bot import bot
+import loader
 
-load_dotenv("credentials/client.secrets")
+loader.load_client_credentials()
+commands_list = loader.load_commands()
+events_list = loader.load_events()
 
-import os
-import importlib
-from pathlib import Path
-from dotenv import load_dotenv
-from bot import bot
+for cmd in commands_list:
+    handler = cmd.get_handler()
+    bot.command(name=cmd.name, aliases=cmd.aliases)(handler)
 
-load_dotenv("credentials/client.secrets")
-
-base_dir = Path(__file__).parent
-
-# Load all command modules
-for file in (base_dir / "commands").glob("*.py"):
-    if file.name != "__init__.py":
-        importlib.import_module(f"commands.{file.stem}")
-
-# Load all event modules
-for file in (base_dir / "events").glob("*.py"):
-    if file.name != "__init__.py":
-        importlib.import_module(f"events.{file.stem}")
+for evt in events_list:
+    handler = evt.get_handler()
+    bot.add_listener(handler, f"on_{evt.name}")
 
 bot.run(os.getenv("client_bot"))
