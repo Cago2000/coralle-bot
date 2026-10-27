@@ -7,6 +7,7 @@ class Command:
     name: str
     brief_description: str = ""
     extended_description: str = ""
+    arguments_description: dict[str, str] = field(default_factory=dict)
     aliases: list[str] = field(default_factory=list)
     enabled: bool = True
     cooldown: Optional[float] = None

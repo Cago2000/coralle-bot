@@ -8,6 +8,10 @@ class Message(Command):
             brief_description="Repeats your message",
             extended_description="Repeats your message, example usage: !message Ich bin ein Beispiel",
             aliases=["msg"],
+            arguments_description=
+            {
+                "content": "Text after command call"
+            },
         )
 
     @staticmethod
