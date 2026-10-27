@@ -1,0 +1,7 @@
+version: '3.8'
+services:
+  bot:
+    build: .
+    container_name: coralle-discord-bot
+    env_file: .credentials/client.secrets
+    restart: unless-stopped
