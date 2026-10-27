@@ -6,7 +6,8 @@ class Calculator(Command):
     def __init__(self):
         super().__init__(
             name="calculator",
-            description="Add two numbers",
+            brief_description=f"Adds 2 numbers together",
+            extended_description="Adds 2 numbers together\na: 1st number\nb: 2nd number",
             aliases=["calc"],
         )
 
@@ -37,5 +38,4 @@ class Calculator(Command):
                 await self.execute(ctx, a, b)
             except commands.BadArgument as e:
                 await self.handle_error(ctx, e)
-
         return handler

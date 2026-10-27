@@ -5,7 +5,8 @@ from typing import Optional, Callable
 @dataclass
 class Command:
     name: str
-    description: str = ""
+    brief_description: str = ""
+    extended_description: str = ""
     aliases: list[str] = field(default_factory=list)
     enabled: bool = True
     cooldown: Optional[float] = None

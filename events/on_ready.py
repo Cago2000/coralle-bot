@@ -5,10 +5,10 @@ class OnReady(Event):
     def __init__(self):
         super().__init__(
             name="ready",
-            description="Bot connected to Discord",
         )
 
-    async def execute(self):
+    @staticmethod
+    async def execute():
         print("Connected to Discord!")
 
     def get_handler(self):

@@ -8,7 +8,11 @@ events_list = loader.load_events()
 
 for cmd in commands_list:
     handler = cmd.get_handler()
-    bot.command(name=cmd.name, aliases=cmd.aliases)(handler)
+    bot.command(name=cmd.name,
+                aliases=cmd.aliases,
+                brief=cmd.brief_description,
+                help=cmd.extended_description,
+                cooldown=cmd.cooldown)(handler)
 
 for evt in events_list:
     handler = evt.get_handler()

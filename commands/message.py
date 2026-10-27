@@ -5,7 +5,8 @@ class Message(Command):
     def __init__(self):
         super().__init__(
             name="message",
-            description="Send a message",
+            brief_description="Repeats your message",
+            extended_description="Repeats your message, example usage: !message Ich bin ein Beispiel",
             aliases=["msg"],
         )
 
@@ -19,5 +20,4 @@ class Message(Command):
                 await ctx.send(f"❌ {self.name} is disabled")
                 return
             await self.execute(ctx, content=content)
-
         return handler
