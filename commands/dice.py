@@ -37,7 +37,7 @@ class Dice(Command):
         for c in range(1, count + 1):
             roll = random.randint(1, sides)
             rolls[c] = roll
-            roll_str_list.append(f"🎲 Rolling d{sides}...      `{roll}`!")
+            roll_str_list.append(f"🎲 Rolling d{sides}...      `{roll}`")
 
         sum_str = sum(rolls.values())
         result = "\n".join([header_str, *roll_str_list, f"➕ **Total: {sum_str}**"])
