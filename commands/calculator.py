@@ -7,7 +7,7 @@ class Calculator(Command):
         super().__init__(
             name="calculator",
             brief_description=f"Adds 2 numbers together",
-            extended_description="Adds 2 numbers together, example usage: !calculator 2 3",
+            extended_description="Adds 2 numbers together",
             arguments_description={
                 "a":  "First number",
                 "b": "Second number"

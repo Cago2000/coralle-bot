@@ -8,8 +8,8 @@ class Dice(Command):
     def __init__(self):
         super().__init__(
             name="dice",
-            brief_description=f"Roll a dice",
-            extended_description="Roll a dice, example usage: !dice 6",
+            brief_description=f"Rolls a dice",
+            extended_description="Rolls a dice with specified amount of sides",
             arguments_description={
                 "x":  "Dice with x sides",
             },
@@ -24,7 +24,7 @@ class Dice(Command):
     @staticmethod
     async def handle_error(ctx, error):
         if isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send("❌ Please provide dice! Example: `!dice d6`")
+            await ctx.send("❌ Please provide amount of sides! Example: `!dice 6`")
         elif isinstance(error, commands.BadArgument):
             await ctx.send("❌ Not a valid dice!")
         else:

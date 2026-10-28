@@ -6,7 +6,7 @@ class Message(Command):
         super().__init__(
             name="message",
             brief_description="Repeats your message",
-            extended_description="Repeats your message, example usage: !message Ich bin ein Beispiel",
+            extended_description="Repeats your message",
             aliases=["msg"],
             arguments_description=
             {
