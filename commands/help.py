@@ -55,20 +55,20 @@ class Help(Command):
             await ctx.send(f"Command `{command}` not found")
             return
 
+        parts = []
+        parts.append(f"Description:\n```{cmd.help or 'No description'}```")
+        parts.append("Aliases:\n" + " ".join(f"```{alias}```" for alias in cmd.aliases or ["No aliases"]))
         arguments = cmd.extras.get("arguments", {})
-        parts = [f"Description:\n```\n{cmd.help or 'No description'}\n```"]
-
-        if cmd.aliases:
-            parts.append("Aliases: " + " ".join(f"`{alias}`" for alias in cmd.aliases))
-
         if arguments:
             args_placeholder = " ".join(f"{{{arg}}}" for arg in arguments)
             parts.extend([
-                f"Example: `!{cmd.qualified_name} {args_placeholder}`",
+                f"Example:\n```!{cmd.qualified_name} {args_placeholder}```",
                 "Arguments:\n```\n" + "\n".join(
                     f"{name}: {desc}" for name, desc in arguments.items()
                 ) + "\n```",
             ])
+        else:
+            parts.append("Arguments:\n ```No arguments```")
 
         embed = discord.Embed(
             title=f"Command: {cmd.qualified_name}",
