@@ -1,20 +1,42 @@
-from discord.ext import commands
+# commands/help.py
 import discord
 
+from commands.base.command import Command
 
-class CustomHelpCommand(commands.DefaultHelpCommand):
-    async def send_command_help(self, command):
-        help_text = command.help or "No description given"
 
-        arguments = command.extras.get('arguments', {})
-        if arguments:
-            help_text += "\n\nArguments:"
-            for arg_name, arg_desc in arguments.items():
-                help_text += f"\n  {arg_name}: {arg_desc}"
+class Help(Command):
+    def __init__(self):
+        super().__init__(
+            name="help",
+            brief_description="Shows this message",
+            extended_description="Shows this message and can explain commands",
+            arguments_description=
+            {
+                "command": "Command, you need help with"
+            },
+            aliases = ["helpme"],
+        )
 
-        title = f"!{command.name}"
-        if command.aliases:
-            title += f" | aliases: {', '.join(command.aliases)}"
+    def get_handler(self):
+        async def handler(self, ctx, command=None):
+            if not self.enabled:
+                await ctx.send(f"❌ {self.name} is disabled")
+                return
 
-        embed = discord.Embed(title=title, description=help_text)
-        await self.context.send(embed=embed)
+            if command is None:
+                # Show all commands
+                pass
+            else:
+                # Show specific command help
+                cmd = ctx.bot.get_command(command)
+                if cmd is None:
+                    await ctx.send(f"❌ Command `{command}` not found")
+                    return
+
+                embed = discord.Embed(
+                    title=cmd.name,
+                    description=cmd.help or "No description",
+                    color=discord.Color.blurple()
+                )
+                await ctx.send(embed=embed)
+        return handler

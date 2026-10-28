@@ -1,16 +1,18 @@
 import os
+
+import constants
 from bot import bot
 import loader
-from commands.help import CustomHelpCommand
 
-#overwrite help command
-bot.help_command = CustomHelpCommand()
 
 loader.load_client_credentials()
 commands_list = loader.load_commands()
 events_list = loader.load_events()
 
 for cmd in commands_list:
+    if cmd.name in constants.command_register_blacklist:
+        continue
+
     handler = cmd.get_handler()
     bot.command(name=cmd.name,
                 aliases=cmd.aliases,
