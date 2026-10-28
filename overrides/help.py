@@ -15,6 +15,7 @@ class CustomHelpCommand(commands.DefaultHelpCommand):
             return ""
 
         lines = []
+        commands_list.sort(key=lambda x: x.qualified_name)
         for cmd in commands_list:
             if cmd.qualified_name == "help":
                 brief = self.help
