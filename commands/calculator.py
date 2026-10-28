@@ -12,7 +12,7 @@ class Calculator(Command):
                 "a":  "First number",
                 "b": "Second number"
             },
-            aliases=["calc"],
+            aliases=["calc", "calculate"],
         )
 
     @staticmethod

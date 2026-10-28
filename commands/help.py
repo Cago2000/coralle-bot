@@ -9,7 +9,7 @@ class Help(Command):
         super().__init__(
             name="help",
             brief_description="Shows this message",
-            extended_description="Shows this message and can explain commands",
+            extended_description="Shows this message and explains commands",
             arguments_description=
             {
                 "command": "Command, you need help with"
