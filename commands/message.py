@@ -21,7 +21,7 @@ class Message(Command):
     def get_handler(self):
         async def handler(ctx, *, content: str):
             if not self.enabled:
-                await ctx.send(f"❌ {self.name} is disabled")
+                await ctx.send(f"{self.name} is disabled")
                 return
             await self.execute(ctx, content=content)
         return handler

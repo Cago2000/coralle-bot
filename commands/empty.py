@@ -22,16 +22,16 @@ class Empty(Command):
     @staticmethod
     async def handle_error(ctx, error):
         if isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send("❌ Please provide amount of sides! Example: `!dice 6`")
+            await ctx.send("Please provide amount of sides! Example: `!dice 6`")
         elif isinstance(error, commands.BadArgument):
-            await ctx.send("❌ Not a valid dice!")
+            await ctx.send("Not a valid dice!")
         else:
             raise error
 
     def get_handler(self):
         async def handler(ctx, sides: int):
             if not self.enabled:
-                await ctx.send(f"❌ {self.name} is disabled")
+                await ctx.send(f"{self.name} is disabled")
                 return
             try:
                 await self.execute(ctx, sides)

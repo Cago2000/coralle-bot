@@ -30,16 +30,16 @@ class Calculator(Command):
     @staticmethod
     async def handle_error(ctx, error):
         if isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send("❌ Please provide two numbers! Example: `!calculator 30 37`")
+            await ctx.send("Please provide two numbers! Example: `!calculator 30 37`")
         elif isinstance(error, commands.BadArgument):
-            await ctx.send("❌ Both arguments must be integers.")
+            await ctx.send("Both arguments must be integers.")
         else:
             raise error
 
     def get_handler(self):
         async def handler(ctx, a: float, b: float):
             if not self.enabled:
-                await ctx.send(f"❌ {self.name} is disabled")
+                await ctx.send(f"{self.name} is disabled")
                 return
             try:
                 await self.execute(ctx, a, b)
