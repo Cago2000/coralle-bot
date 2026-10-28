@@ -36,3 +36,9 @@ def load_events():
     events_dir = base_dir / "events"
     events = iterate_folder(events_dir, "events", Event)
     return events
+
+def load_command_mapping():
+    return {
+        command.name: command
+        for command in load_commands()
+    }
