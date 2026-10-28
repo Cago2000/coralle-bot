@@ -22,9 +22,9 @@ class Empty(Command):
     @staticmethod
     async def handle_error(ctx, error):
         if isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send("Please provide amount of sides! Example: `!dice 6`")
+            await ctx.send(f"Get gud!")
         elif isinstance(error, commands.BadArgument):
-            await ctx.send("Not a valid dice!")
+            await ctx.send("Not a valid opinion!")
         else:
             raise error
 
