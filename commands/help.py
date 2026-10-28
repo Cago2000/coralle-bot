@@ -1,7 +1,10 @@
 import discord
-from commands.base.command import Command
-import constants
+from discord.ext import commands
 
+from commands.base.command import Command
+from loader import load_command_mapping
+
+command_subclass_mapping = load_command_mapping()
 
 class Help(Command):
     def __init__(self):
@@ -15,7 +18,7 @@ class Help(Command):
             aliases=["helpme"],
         )
 
-    async def execute(self, ctx, *, command):
+    async def execute(self, ctx, command):
         if command is None:
             await self.execute_overview_help(ctx)
         else:
@@ -31,8 +34,8 @@ class Help(Command):
         lines = []
         for cmd in commands:
             brief = (
-                constants.command_subclass_mapping["help"].brief_description
-                if cmd.qualified_name == "help" and "help" in constants.command_subclass_mapping
+                command_subclass_mapping["help"].brief_description
+                if cmd.qualified_name == "help" and "help" in command_subclass_mapping
                 else cmd.brief or "No description"
             )
             lines.append(f"{cmd.qualified_name:<10} : {brief}")
@@ -77,10 +80,20 @@ class Help(Command):
         )
         await ctx.send(embed=embed)
 
+    @staticmethod
+    async def handle_error(ctx, error):
+        if isinstance(error, commands.BadArgument):
+            await ctx.send(f"Not a valid command!")
+        else:
+            raise error
+
     def get_handler(self):
         async def handler(ctx, *, command: str = None):
             if not self.enabled:
                 await ctx.send(f"Command ´{self.name}´ is disabled")
                 return
-            await self.execute(ctx, command=command)
+            try:
+                await self.execute(ctx, command)
+            except commands.BadArgument as e:
+                await self.handle_error(ctx, e)
         return handler
