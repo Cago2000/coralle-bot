@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from discord.ext import commands
 from commands.base.command import Command
 
@@ -9,18 +11,19 @@ class Calculator(Command):
             brief_description=f"Adds 2 numbers together",
             extended_description="Adds 2 numbers together",
             arguments_description={
-                "a":  "First number",
+                "a": "First number",
                 "b": "Second number"
             },
             aliases=["calc", "calculate"],
         )
 
     @staticmethod
-    async def execute(ctx, a: int, b: int):
-        result = a + b
-        if result == 67:
+    async def execute(ctx, a: float, b: float):
+        a_str, b_str = str(a), str(b)
+        result = Decimal(a_str) + Decimal(b_str)
+        if result == 67.0:
             result = "6🤷🏻‍♀️7"
-        if result == 69:
+        if result == 69.0:
             result = "nice"
         await ctx.send(result)
 
@@ -34,7 +37,7 @@ class Calculator(Command):
             raise error
 
     def get_handler(self):
-        async def handler(ctx, a: int, b: int):
+        async def handler(ctx, a: float, b: float):
             if not self.enabled:
                 await ctx.send(f"❌ {self.name} is disabled")
                 return
